@@ -1,0 +1,44 @@
+name: "mcp-notary check"
+description: "Verify a MCP server before installing it — provenance and typosquatting detection"
+author: "sopitacasera"
+
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  server:
+    description: "MCP server name, optionally with @version (e.g. filesystem-mcp@1.2.3)"
+    required: true
+  sarif:
+    description: "Output results as SARIF for GitHub Security tab"
+    required: false
+    default: "false"
+  fail-on-warning:
+    description: "Exit 1 on typosquatting warnings (default: true)"
+    required: false
+    default: "true"
+
+outputs:
+  result:
+    description: "Verification result: verified | unverified | unknown"
+    value: ${{ steps.check.outputs.result }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install mcp-notary
+      shell: bash
+      run: pip install mcp-notary
+
+    - name: Run mcp-notary check
+      id: check
+      shell: bash
+      run: |
+        if [ "${{ inputs.sarif }}" = "true" ]; then
+          mcp-notary check "${{ inputs.server }}" --sarif > mcp-notary.sarif || true
+          echo "result=see-sarif" >> $GITHUB_OUTPUT
+        else
+          mcp-notary check "${{ inputs.server }}"
+          echo "result=done" >> $GITHUB_OUTPUT
+        fi
