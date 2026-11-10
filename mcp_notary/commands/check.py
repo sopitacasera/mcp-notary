@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 import json as _json
-import sys
 
 import typer
 
 from mcp_notary.core.provenance import ProvenanceStatus, verify_provenance
 from mcp_notary.core.typosquatting import check_typosquatting
-from mcp_notary.output.table import print_check_result
 from mcp_notary.output.sarif import print_sarif
+from mcp_notary.output.table import print_check_result
 
 
 def check(

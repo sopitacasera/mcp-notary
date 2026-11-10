@@ -5,9 +5,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 try:
+    from rich import box
     from rich.console import Console
     from rich.table import Table
-    from rich import box
     _RICH_AVAILABLE = True
 except ImportError:
     _RICH_AVAILABLE = False
@@ -21,7 +21,7 @@ console = Console() if _RICH_AVAILABLE else None
 
 def print_check_result(
     server: str,
-    provenance: "ProvenanceResult",
+    provenance: ProvenanceResult,
     typosquats: list[dict],
     json_output: bool = False,
 ) -> None:
@@ -32,7 +32,7 @@ def print_check_result(
     _print_rich(server, provenance, typosquats)
 
 
-def _print_plain(server: str, provenance: "ProvenanceResult", typosquats: list[dict]) -> None:
+def _print_plain(server: str, provenance: ProvenanceResult, typosquats: list[dict]) -> None:
     print(f"mcp-notary check {server}")
     print(f"  Status:       {provenance.status.value.upper()}")
     print(f"  Details:      {provenance.details}")
@@ -42,7 +42,7 @@ def _print_plain(server: str, provenance: "ProvenanceResult", typosquats: list[d
         print("  Typosquatting: No matches found")
 
 
-def _print_rich(server: str, provenance: "ProvenanceResult", typosquats: list[dict]) -> None:
+def _print_rich(server: str, provenance: ProvenanceResult, typosquats: list[dict]) -> None:
     assert console is not None
     # box.ASCII uses only +, -, | characters — safe for cp1252 and all Windows consoles.
     table = Table(title=f"mcp-notary check {server}", box=box.ASCII, show_header=False)

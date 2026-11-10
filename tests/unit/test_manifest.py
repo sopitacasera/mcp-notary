@@ -1,10 +1,11 @@
 """Unit tests for manifest parsing."""
 
 import json
-import pytest
-from mcp_notary.core.manifest import parse_manifest, hash_manifest, extract_tools
-from mcp_notary.exceptions import ManifestNotFoundError
 
+import pytest
+
+from mcp_notary.core.manifest import extract_tools, hash_manifest, parse_manifest
+from mcp_notary.exceptions import ManifestNotFoundError
 
 SAMPLE_MANIFEST = {
     "name": "filesystem-mcp",

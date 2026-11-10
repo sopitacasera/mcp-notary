@@ -1,6 +1,5 @@
 """Unit tests for typosquatting detection."""
 
-import pytest
 from mcp_notary.core.typosquatting import _levenshtein, check_typosquatting
 
 

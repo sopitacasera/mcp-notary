@@ -16,7 +16,7 @@ TOOL_VERSION = "0.1.0"
 
 def build_sarif(
     server: str,
-    provenance: "ProvenanceResult",
+    provenance: ProvenanceResult,
     typosquats: list[dict],
 ) -> dict:
     """Build a SARIF 2.1.0 report for a check result."""
@@ -64,5 +64,5 @@ def build_sarif(
     }
 
 
-def print_sarif(server: str, provenance: "ProvenanceResult", typosquats: list[dict]) -> None:
+def print_sarif(server: str, provenance: ProvenanceResult, typosquats: list[dict]) -> None:
     print(json.dumps(build_sarif(server, provenance, typosquats), indent=2))

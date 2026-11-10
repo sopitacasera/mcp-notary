@@ -1,6 +1,10 @@
 """Unit tests for provenance verification."""
 
-from mcp_notary.core.provenance import ProvenanceStatus, ProvenanceResult, verify_provenance
+from mcp_notary.core.provenance import (
+    ProvenanceResult,
+    ProvenanceStatus,
+    verify_provenance,
+)
 
 
 class TestProvenanceResult:
